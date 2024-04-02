@@ -21,7 +21,6 @@ pub fn main() {
 pub fn solve_p1(lines: List(String)) -> String {
   list.map(lines, extract_numerals)
   |> list.map(two_digit_result)
-  |> list.filter(result.is_ok)
   |> result.all
   |> result.map(list.fold(_, from: 0, with: fn(b, a) { b + a }))
   |> result.map(int.to_string)
@@ -31,7 +30,6 @@ pub fn solve_p1(lines: List(String)) -> String {
 pub fn solve_p2(lines: List(String)) -> String {
   list.map(lines, extract_numbers)
   |> list.map(two_digit_result)
-  |> list.filter(result.is_ok)
   |> result.all
   |> result.map(list.fold(_, from: 0, with: fn(b, a) { b + a }))
   |> result.map(int.to_string)
@@ -41,7 +39,9 @@ pub fn solve_p2(lines: List(String)) -> String {
 pub fn read_lines(
   from filepath: String,
 ) -> Result(List(String), simplifile.FileError) {
-  result.map(simplifile.read(from: filepath), string.split(_, "\n"))
+  simplifile.read(from: filepath)
+  |> result.map(string.trim)
+  |> result.map(string.split(_, "\n"))
 }
 
 pub fn extract_numerals(line: String) -> List(Int) {
