@@ -7,12 +7,6 @@ pub fn main() {
   gleeunit.main()
 }
 
-// gleeunit test functions end in `_test`
-pub fn hello_world_test() {
-  1
-  |> should.equal(1)
-}
-
 const testinput = "1abc2
 pqr3stu8vwx
 a1b2c3d4e5f

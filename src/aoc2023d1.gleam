@@ -19,35 +19,23 @@ pub fn main() {
 }
 
 pub fn solve_p1(lines: List(String)) -> String {
-  let processed =
-    list.map(lines, extract_numerals)
-    |> list.map(two_digit_result)
-    |> list.filter(result.is_ok)
-    |> result.all
-
-  case processed {
-    Ok(values) -> {
-      list.fold(values, from: 0, with: fn(b, a) { b + a })
-      |> int.to_string
-    }
-    Error(_) -> "Error Processing list"
-  }
+  list.map(lines, extract_numerals)
+  |> list.map(two_digit_result)
+  |> list.filter(result.is_ok)
+  |> result.all
+  |> result.map(list.fold(_, from: 0, with: fn(b, a) { b + a }))
+  |> result.map(int.to_string)
+  |> result.unwrap("error running part 1")
 }
 
 pub fn solve_p2(lines: List(String)) -> String {
-  let processed =
-    list.map(lines, extract_numbers)
-    |> list.map(two_digit_result)
-    |> list.filter(result.is_ok)
-    |> result.all
-
-  case processed {
-    Ok(values) -> {
-      list.fold(values, from: 0, with: fn(b, a) { b + a })
-      |> int.to_string
-    }
-    Error(_) -> "Error Processing list"
-  }
+  list.map(lines, extract_numbers)
+  |> list.map(two_digit_result)
+  |> list.filter(result.is_ok)
+  |> result.all
+  |> result.map(list.fold(_, from: 0, with: fn(b, a) { b + a }))
+  |> result.map(int.to_string)
+  |> result.unwrap("error running part 2")
 }
 
 pub fn read_lines(
